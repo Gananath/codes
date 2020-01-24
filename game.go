@@ -11,7 +11,7 @@ import (
     "./libtac"
 )
 
-var size int
+var size int 
 var player, ai string
 
 func init(){    
@@ -36,10 +36,12 @@ func init(){
 
 func main(){
     var p_input int
+    var u_input string
     // creating vacant board
     board := libtac.CreateBoard(size) 
     fmt.Println(size)
     libtac.PrintBoard(board,size)
+
     fmt.Println("\t[Board Map]")
 
     r := 0
@@ -50,6 +52,7 @@ func main(){
             r++
         }
     }
+
     for true {
         fmt.Printf("\n")
         fmt.Println("\n\t[You]:",strings.ToUpper(player),"  [Computer]:",strings.ToUpper(ai),"\n")
@@ -64,15 +67,30 @@ func main(){
         board[p_input] = player
         libtac.PrintBoard(board,size)
         if libtac.Playing(board,player,size)==true{
-            break
+            fmt.Print("\n\tDo you want to continue(Y/N): ")
+            fmt.Scan(&u_input)
+            if strings.ToUpper(u_input)=="Y"{
+                main()
+            }else{
+                break
+            }
+            
         }
         // Computer moves
         move := libtac.SimpleAI(board,size)
         board[move] = ai
         libtac.PrintBoard(board,size)
         if libtac.Playing(board,ai,size)==true{
-            break
+            fmt.Print("\n\tDo you want to continue(Y/N): ")
+            fmt.Scan(&u_input)
+            if strings.ToUpper(u_input)=="Y"{
+                main()
+            }else{
+                break
+            }
         }
     }
 }
+
+
 
