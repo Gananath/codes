@@ -39,7 +39,6 @@ func main(){
     var u_input string
     // creating vacant board
     board := libtac.CreateBoard(size) 
-    fmt.Println(size)
     libtac.PrintBoard(board,size)
 
     fmt.Println("\t[Board Map]")
