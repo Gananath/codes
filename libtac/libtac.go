@@ -106,18 +106,14 @@ func HasWon(board []string,char string,size int) bool{
 
 func SimpleAI(board []string,size int)int{
     // returns the winning move or blocks the winning move of the opponent
+    possibleMoves := PossibleMoves(board)
     copyBoard := make([]string, len(board))
     letters := []string{"o","x"}
-    var possibleMoves[] int
-    for i,e := range board{
-        if e=="-"{
-            possibleMoves = append(possibleMoves,i)
-        }
-    }
     for _,char := range letters{
         for _,e := range possibleMoves{
             copy(copyBoard,board)
             copyBoard[e] = char
+            PrintBoard(copyBoard,size)
             if HasWon(copyBoard,char, size){
                 return e
             }
@@ -154,6 +150,29 @@ func GameStatus(board []string,char string,size int) int{
     }
 }
 
+func Playing(board []string, char string,size int) bool{
+    status := GameStatus(board,char,size)
+    if status==1{
+        fmt.Println("\t",strings.ToUpper(char),"has won the game")
+        return true
+    }else if status==-1 {
+        fmt.Println("\tGame is a draw")
+        return true
+    } 
+    return false
+}
+
+
+func PossibleMoves(board []string) []int{
+    var possibleMoves[] int
+    for i,e := range board{
+        if e=="-"{
+            possibleMoves = append(possibleMoves,i)
+        }
+    }
+    return possibleMoves
+}
+
 func Contains(s []int, e int) bool {
     for _, a := range s {
         if a == e {
@@ -163,16 +182,5 @@ func Contains(s []int, e int) bool {
     return false
 }
 
-func Playing(board []string, char string,size int) bool{
-    status := GameStatus(board,char,size)
-    if status==1{
-        fmt.Println(strings.ToUpper(char),"has won the game")
-        return true
-    }else if status==-1 {
-        fmt.Println("Game is a draw")
-        return true
-    } 
-    return false
-}
 
 
