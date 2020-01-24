@@ -40,7 +40,6 @@ func main(){
     board := libtac.CreateBoard(size) 
     fmt.Println(size)
     libtac.PrintBoard(board,size)
-    // user playing
     fmt.Println("\t[Board Map]")
 
     r := 0
