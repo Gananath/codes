@@ -1,30 +1,23 @@
 /*
  * Author: Gananath R
- * A go lang library for creating n dimensional tic-tac-toe game
- * 
- * 
- * 
+ * A go lang library for creating n dimensional tic-tac-toe games
  * 
  */
 
 package main
 import (
     "fmt"
-    "./libtac"
     "strings"
-
+    "./libtac"
 )
 
-
-
-var size int = 2
-
+var size int
 var player, ai string
 
 func init(){    
-    fmt.Println("Enter the size of tic tac toe: ")
+    fmt.Print("\n\tEnter the size of tic tac toe: ")
     fmt.Scan(&size)
-    fmt.Println("Do you want to be 'x' or 'o': ")
+    fmt.Print("\n\tDo you want to be 'x' or 'o': ")
     fmt.Scan(&player)
 
     if (strings.ToUpper(player) == "X"){
@@ -48,7 +41,8 @@ func main(){
     fmt.Println(size)
     libtac.PrintBoard(board,size)
     // user playing
-    fmt.Println("Board Map")
+    fmt.Println("\t[Board Map]")
+
     r := 0
     for i:=0;i<size;i++{
         fmt.Printf("\n\t\t")
@@ -57,21 +51,23 @@ func main(){
             r++
         }
     }
-    fmt.Printf("\n")
-
     for true {
-        fmt.Println(" You:",strings.ToUpper(player),"  Computer:",strings.ToUpper(ai))
-        fmt.Println(" ")
-        fmt.Println(" Please enter the position number between 1 and ",size*size)
+        fmt.Printf("\n")
+        fmt.Println("\n\t[You]:",strings.ToUpper(player),"  [Computer]:",strings.ToUpper(ai),"\n")
+        fmt.Print(" Please enter the position number between 0 and ",size*size-1,": ")
         fmt.Scan(&p_input)
-        if (p_input<1)||(p_input>size*size){
+        // User moves
+        possibleMoves := libtac.PossibleMoves(board)
+        if (p_input<0)||(p_input>size*size-1)||!libtac.Contains(possibleMoves,p_input){
+            libtac.PrintBoard(board,size)
             continue
         }
-        board[p_input-1] = player
+        board[p_input] = player
         libtac.PrintBoard(board,size)
         if libtac.Playing(board,player,size)==true{
             break
         }
+        // Computer moves
         move := libtac.SimpleAI(board,size)
         board[move] = ai
         libtac.PrintBoard(board,size)
@@ -79,7 +75,5 @@ func main(){
             break
         }
     }
-
-
 }
 
