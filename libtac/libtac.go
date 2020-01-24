@@ -2,9 +2,6 @@
  * Author: Gananath R
  * A go lang library for dynamically creating n dimensional tic-tac-toe game
  * 
- * 
- * 
- * 
  */
 
 package libtac
@@ -105,7 +102,7 @@ func HasWon(board []string,char string,size int) bool{
 }
 
 func SimpleAI(board []string,size int)int{
-    // returns the winning move or blocks the winning move of the opponent
+    // Returns the winning move or blocks the winning move of the opponent
     possibleMoves := PossibleMoves(board)
     copyBoard := make([]string, len(board))
     letters := []string{"o","x"}
@@ -120,32 +117,42 @@ func SimpleAI(board []string,size int)int{
         }
         
     }
-    // initialize global pseudo random generator
+    // Initialize global pseudo random generator
     rand.Seed(time.Now().Unix())
-    // takes corner positions if vacant
+    // Play for corners
     top_right := size-1
     bottom_left := size*top_right
     bottom_right := bottom_left+top_right
     corners := []int{0,top_right,bottom_left,bottom_right}
-    rand.Shuffle(len(corners), func(i, j int) { corners[i], corners[j] = corners[j], corners[i] }) // shuffling the arrays order
-    for _,c := range corners {
-        if Contains(possibleMoves,c){
-            return c
+    RandomizeSlice(corners)
+    for _,e := range corners {
+        if Contains(possibleMoves,e){
+            return e
         }
     }
+    
+    // Play for the edges
+    edges := GetEdges(size)
+    RandomizeSlice(edges)
+    for _,e := range edges {
+        if Contains(possibleMoves,e){
+            return e
+        }
+    }
+    // Else take random positions
     return possibleMoves[rand.Intn(len(possibleMoves))]
 }
 
 
 func GameStatus(board []string,char string,size int) int{
     if HasWon(board,char,size){
-        // won the game
+        // Won the game
         return 1
     }else if IsFilled(board){
-        // game is a draw
+        // Game is a draw
         return -1
     }else{
-        // still playing
+        // Still playing
         return 0
     }
 }
@@ -173,6 +180,22 @@ func PossibleMoves(board []string) []int{
     return possibleMoves
 }
 
+func GetEdges(size int)[]int{
+    var top,left,right,bottom [] int
+    for i:=1;i<size-1;i++{
+        top = append(top,i)
+        left = append(left,i*size)
+        right = append(right,size-1+size*i)
+        bottom = append(bottom,(size*size-i)-1)
+    }
+    // Appending all slices to one
+    x := append(top,left...)
+    x = append(x,right...)
+    x = append(x,bottom...)
+    return x
+}
+
+
 func Contains(s []int, e int) bool {
     for _, a := range s {
         if a == e {
@@ -182,5 +205,8 @@ func Contains(s []int, e int) bool {
     return false
 }
 
+func RandomizeSlice(x []int){
+    rand.Shuffle(len(x), func(i, j int) { x[i], x[j] = x[j], x[i] })
+}
 
 
