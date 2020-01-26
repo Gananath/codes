@@ -3,7 +3,6 @@ extern crate rand;
 use rand::Rng;
 use std::thread;
 use std::time::Duration;
-use std::io;
 
 fn main() {
     
