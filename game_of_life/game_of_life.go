@@ -90,11 +90,9 @@ func random_state(m int,n int) [][]int {
     }
     // Random generating seeds for GoL
     for i :=0; i < r_num;{ 
-        row := random(1,m-3)
-        col := random(1,n-3)
-        if (matrix[row][col]==1) || (matrix[row-1][col]==1) || (matrix[row-2][col]==1) || (matrix[row][col-1]==1) || (matrix[row-1][col-2]==1) {
-            continue
-        }
+        row := random(2,m-1)
+        col := random(2,n-1)
+
         matrix[row][col] = 1
         matrix[row-1][col] =1
         matrix[row-2][col] =1
