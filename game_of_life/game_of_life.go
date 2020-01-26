@@ -78,7 +78,7 @@ func main(){
         } // i for loop 
     //break
     e = 1 //+ e// infinite loop
-    time.Sleep(1* time.Second) 
+    time.Sleep(100 * time.Millisecond) 
     } // e for loop
 }
 
