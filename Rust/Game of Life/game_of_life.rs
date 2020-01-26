@@ -6,7 +6,7 @@ use std::time::Duration;
 
 fn main() {
     
-    // parameter row, column for the enviroment and r_num for number of species
+    // parameters row, column for the enviroment and r_num for number of species
     let (row,col,r_num)=(4,4,1);
     let mut state = random_state(row,col,r_num);
     let mut episode = 0;
