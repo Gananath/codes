@@ -35,8 +35,8 @@ fn main() {
     let mut state = random_state(row,col,r_num);
     let mut episode = 0;
     loop{
-        visualize(state.clone());
-        let count_map = neighbourhood_map(state.clone());
+        visualize(&state);
+        let count_map = neighbourhood_map(&state);
         println!("Generation:{}",episode);
         for i in 0..state.len()-1 {
             for j in 0..state[0].len()-1 {
@@ -94,18 +94,18 @@ fn random_state(m:usize,n:usize,r_num:usize)-> Vec<Vec<i32>> {
     matrix
 }
 
-fn neighbourhood_map(state:Vec<Vec<i32>>)-> Vec<Vec<i32>> {
+fn neighbourhood_map(state:&Vec<Vec<i32>>)-> Vec<Vec<i32>> {
     let mut matrix = vec![vec![0i32;state[0].len()];state.len()];
     for i in 0..matrix.len()-1{
         for j in 0..matrix[0].len()-1{
-                let count:i32 = neighbours_count(state.clone(),i,j) as i32;
+                let count:i32 = neighbours_count(&state,i,j) as i32;
                 matrix[i][j]=count;
         }
     }
     matrix
 }
 
-fn visualize(matrix:Vec<Vec<i32>>){
+fn visualize(matrix:&Vec<Vec<i32>>){
     print!("\x1B[2J");
     print!("\n\t\t");
     for i in 0..matrix.len()-1{
@@ -133,7 +133,7 @@ fn _board_map(matrix:Vec<Vec<i32>>){
     }
 }
 
-fn neighbours_count(matrix:Vec<Vec<i32>>,i:usize, j:usize)-> usize {
+fn neighbours_count(matrix:&Vec<Vec<i32>>,i:usize, j:usize)-> usize {
     
     let mut count =0;
     let m = matrix[0].len();
