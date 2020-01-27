@@ -2,6 +2,7 @@
  * Author: Gananath R
  * A dynamic size text based Conway's Game of Life in rust
  * 
+ * 
  */
 
 extern crate rand;
@@ -9,21 +10,38 @@ extern crate rand;
 use rand::Rng;
 use std::thread;
 use std::time::Duration;
+use std::io::{stdin,stdout,self,Write};
 
 fn main() {
     
-    // parameters row, column for the enviroment and r_num for number of species
-    let (row,col,r_num)=(4,4,1);
+    // User input
+    let mut s = String::new();
+    let mut s1 = String::new();
+    let mut s2 = String::new();
+    print!("Enter row value: ");
+    stdout().flush().unwrap();
+    stdin().read_line(&mut s).expect("Wrong string entered");
+    print!("Enter column value: ");
+    stdout().flush().unwrap();
+    stdin().read_line(&mut s1).expect("Wrong string entered");
+    print!("Enter initial number of species: ");
+    stdout().flush().unwrap();
+    stdin().read_line(&mut s2).expect("Wrong string entered");
+    
+    // Code begins here
+    let row:usize = s.trim().parse().unwrap();
+    let col:usize = s1.trim().parse().unwrap();
+    let r_num:usize = s2.trim().parse().unwrap();
     let mut state = random_state(row,col,r_num);
     let mut episode = 0;
     loop{
-        break;
         visualize(state.clone());
+        let count_map = neighbourhood_map(state.clone());
         println!("Generation:{}",episode);
         for i in 0..state.len()-1 {
             for j in 0..state[0].len()-1 {
                 let cell =if state[i][j]==1{1}else{0};
-                let count = neighbours_count(state.clone(),i,j);
+                let count = count_map[i][j];
                 //println!("cell:{} count:{}",state.len(), state[0].len());
                 if cell==1 && count < 2 {
                 // Rule 1: Any live cell with fewer than two live neighbours dies (referred to as underpopulation or exposur
@@ -55,6 +73,7 @@ fn random_state(m:usize,n:usize,r_num:usize)-> Vec<Vec<i32>> {
     for _i in 0..r_num{
         let row = rand::thread_rng().gen_range(2, m-1);
         let col = rand::thread_rng().gen_range(2, n-1);
+        
         matrix[row][col] = 1;
         matrix[row-1][col] = 1;
         matrix[row-2][col] = 1;
@@ -62,8 +81,27 @@ fn random_state(m:usize,n:usize,r_num:usize)-> Vec<Vec<i32>> {
         matrix[row][col-1] = 1;
         matrix[row-1][col-2] = 1;
 
+        /*
+        matrix[row][col] = 1;
+        matrix[row][col-1] = 1;
+        matrix[row][col+1] = 1;
+        matrix[row-1][col-1] = 1;
+        matrix[row-1][col] = 1;
+        matrix[row-1][col+1] = 1;
+        */
     }
     
+    matrix
+}
+
+fn neighbourhood_map(state:Vec<Vec<i32>>)-> Vec<Vec<i32>> {
+    let mut matrix = vec![vec![0i32;state[0].len()];state.len()];
+    for i in 0..matrix.len()-1{
+        for j in 0..matrix[0].len()-1{
+                let count:i32 = neighbours_count(state.clone(),i,j) as i32;
+                matrix[i][j]=count;
+        }
+    }
     matrix
 }
 
@@ -73,11 +111,23 @@ fn visualize(matrix:Vec<Vec<i32>>){
     for i in 0..matrix.len()-1{
         for j in 0..matrix[0].len()-1{
             if matrix[i][j]==1{
-                print!("*");
+                // green color
+                print!("\u{1b}[0m\u{1b}[32;1m*\u{1b}[0m");
             }else{
                 print!(".")
             }
             
+        }
+        print!("\n\t\t");
+    }
+}
+
+fn _board_map(matrix:Vec<Vec<i32>>){
+    //print!("\x1B[2J");
+    print!("\n\t\t");
+    for i in 0..matrix.len()-1{
+        for j in 0..matrix[0].len()-1{
+            print!("{}",matrix[i][j])
         }
         print!("\n\t\t");
     }
@@ -139,4 +189,3 @@ fn neighbours_count(matrix:Vec<Vec<i32>>,i:usize, j:usize)-> usize {
     }
     count
 }
-
