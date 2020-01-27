@@ -2,7 +2,7 @@
  * Author: Gananath R
  * A dynamic size text based Conway's Game of Life in rust
  * 
- * 
+ * main.rs
  */
 
 extern crate rand;
