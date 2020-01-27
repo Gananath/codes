@@ -1,4 +1,8 @@
-# gotac
+# Golang and Rust implementation of
+- Game of life
+- Tic Tac Toe
+
+## libtac
 A go lang library for creating text based n dimensional tic-tac-toe games
 
 ```
