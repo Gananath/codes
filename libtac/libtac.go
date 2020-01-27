@@ -22,7 +22,15 @@ func PrintBoard(board []string,size int){
     for i:=0;i<size;i++{
         fmt.Printf("\n\t\t")
         for j:=0;j<size;j++{
-            fmt.Print(strings.ToUpper(board[r]),"|")
+            str := strings.ToUpper(board[r])
+            if str=="X"{
+                fmt.Print("\033[32;1m ",str,"\033[0m ","|")
+            }else if str=="O"{
+                fmt.Print("\033[31;1m ",str,"\033[0m ","|")
+            }else{
+                fmt.Print("\033[37;1m ",str,"\033[0m ","|")
+            }
+            
             r++
         }
     }
