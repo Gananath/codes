@@ -38,6 +38,7 @@ fn main() {
         visualize(&state);
         let count_map = neighbourhood_map(&state);
         println!("Generation:{}",episode);
+        //_board_map(&count_map);
         for i in 0..state.len()-1 {
             for j in 0..state[0].len()-1 {
                 let cell =if state[i][j]==1{1}else{0};
@@ -52,7 +53,7 @@ fn main() {
                 }else if (cell==1 && count==2) || count==3{
                 // Rule 3: Any live cell with two or three live neighbours lives, unchanged, to the next generation.
                 //fmt.Print(3)
-                    state[i][j] = 1;
+                    continue;
                 }else if cell==0 && count==3 {
                 //Rule 4: Any dead cell with exactly three live neighbours will come to life.
                 //fmt.Print(4)
@@ -64,7 +65,11 @@ fn main() {
         }
     thread::sleep(Duration::from_millis(100));
     episode += 1;
+    //if episode==2{
+    //        break;
+    //    }
     }
+    
 }
 
 
@@ -112,9 +117,11 @@ fn visualize(matrix:&Vec<Vec<i32>>){
         for j in 0..matrix[0].len()-1{
             if matrix[i][j]==1{
                 // green color
-                print!("\u{1b}[0m\u{1b}[32;1m*\u{1b}[0m");
+                //print!("\u{1b}[0m\u{1b}[32;1m*\u{1b}[0m");
+                print!("\u{1b}[0m\u{1b}[32;1m\u{25A0}\u{1b}[0m");
             }else{
-                print!(".")
+                //print!(".")
+                print!("\u{25A0}"); // unicode square block
             }
             
         }
@@ -122,7 +129,7 @@ fn visualize(matrix:&Vec<Vec<i32>>){
     }
 }
 
-fn _board_map(matrix:Vec<Vec<i32>>){
+fn _board_map(matrix:&Vec<Vec<i32>>){
     //print!("\x1B[2J");
     print!("\n\t\t");
     for i in 0..matrix.len()-1{
