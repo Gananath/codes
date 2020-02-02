@@ -1,5 +1,5 @@
 /*
- * Author: Gananath R
+ * Author: Gananath R (2020)
  * A dynamic size text based Conway's Game of Life in golang
  * 
  * 
@@ -12,8 +12,8 @@ import (
     "math/rand"
     "time"
 )
-var m,n, r_num int //= 10,10,1
- 
+var m,n, r_num int// = 20,20,100
+
 func init(){
     fmt.Print("Enter the row value: ")
     fmt.Scan(&m)
@@ -64,11 +64,14 @@ func main(){
                     state[i][j] = 1
                 }
                 //fmt.Print(count)
-        } // j for loop
+            } // j for loop
         //fmt.Println()
         } // i for loop 
 
-    time.Sleep(100 * time.Millisecond) 
+        time.Sleep(100 * time.Millisecond) 
+        //if gen == 10{
+            //break
+        //}
     } // e for loop
     
 }
@@ -83,23 +86,31 @@ func RandomState(m int,n int) [][]int {
     for i :=0; i < r_num;{ 
         row := Random(2,m-1)
         col := Random(2,n-1)
-        
-        matrix[row][col] = 1
-        matrix[row-1][col] =1
-        matrix[row-2][col] =1
-        matrix[row-1][col+1] =1
-        matrix[row][col-1] =1
-        matrix[row-1][col-2] =1
-        /*
-         *  dash-dash-dash 
-         *  dash-dash-dash pattern
+        r := rand.Intn(3)
+        if r==0{
+            matrix[row][col] = 1
+            matrix[row-1][col] =1
+            matrix[row-2][col] =1
+            matrix[row-1][col+1] =1
+            matrix[row][col-1] =1
+            matrix[row-1][col-2] =1
+        }else if r==1{
+            
+        //  dash-dash-dash 
+         //  dash-dash-dash pattern
         matrix[row][col] = 1
         matrix[row][col-1] = 1
         matrix[row][col+1] = 1
         matrix[row-1][col-1] = 1
         matrix[row-1][col] = 1
         matrix[row-1][col+1] = 1
-        */
+        }else{
+            matrix[row][col] = 1
+            matrix[row-1][col] =1
+            matrix[row-2][col] =1
+            matrix[row][col-1] =1
+            matrix[row-1][col-2] =1
+        }
         i++
     }
     return matrix
