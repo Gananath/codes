@@ -50,12 +50,13 @@ func main(){
     for x := 0; x < frac.width; x++ {
         for y := 0; y < frac.height; y++ {
             if mb == 0{
+				// Mandelbrot Set
 				c_re = float64(1/zoom)*normalize(float64(x),0,float64(frac.width),-2,2)
 				c_im = float64(1/zoom)*normalize(float64(y),0,float64(frac.height),-2,2)
 				z = complex(0,0)
 			}else if mb==1{
-            // Julia Set
-            // Uncomment below lines to u
+				// Julia Set
+				// wikipedia.org/wiki/Julia_set
 				c_re = -0.8 
 				c_im =  0.156
 				z_re := float64(1/zoom)*normalize(float64(x),0,float64(frac.width),-2,2)
