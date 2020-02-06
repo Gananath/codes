@@ -2,6 +2,7 @@
 - Game of life
 - Tic Tac Toe
 - Fractals
+- Web App
 
 ## libtac
 A go lang library for creating text based n dimensional tic-tac-toe games
