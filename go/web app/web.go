@@ -33,7 +33,7 @@ func init(){
 }
 
 func connect_db(filename string)(*sql.DB, error){
-    db, err = sql.Open("sqlite3", "./"+filename)
+    db, err = sql.Open("sqlite3", filename)
     if err != nil {
         fmt.Println("Error")
     }else{
@@ -97,7 +97,7 @@ func FormHandler(w http.ResponseWriter, r *http.Request){
 }
 
 func main() {
-    db,err = connect_db("example.db")
+    db,err = connect_db("./database/example.db")
     defer db.Close()
     checkErr(err)
     http.HandleFunc("/", IndexHandler)
