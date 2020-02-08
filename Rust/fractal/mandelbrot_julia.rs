@@ -55,7 +55,6 @@ fn main() {
                 z = num::complex::Complex::new(z_re, z_im);
             }
             let c = num::complex::Complex::new(c_re, c_im);
-            
             let n = mandelbrot_julia(c,z,frac.max_iter);
             
             let pixel;
@@ -67,7 +66,6 @@ fn main() {
                 pixel = Rgb::from_channels(colr, colr, colr, 255);
             }
             
-
             img.put_pixel(x as u32, y as u32, pixel);
            
            
@@ -78,8 +76,8 @@ fn main() {
 
 
 fn normalize(x:f64,x_min:f64,x_max:f64,y_min:f64,y_max:f64) ->f64{
-	// https://stats.stackexchange.com/a/281165
-	(((y_max-y_min)*((x-x_min)/x_max-x_min))+y_min)
+    // https://stats.stackexchange.com/a/281165
+    (((y_max-y_min)*((x-x_min)/x_max-x_min))+y_min)
 }
 
 fn mandelbrot_julia(mut c:num::complex::Complex<f64>,mut z:num::complex::Complex<f64>,max_iter:i32)->i32{
