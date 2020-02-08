@@ -46,10 +46,10 @@ fn main() {
                 c_im = (1.0/zoom)*normalize(y as f64,0.0, frac.height as f64,-2.5,2.5);
                 z = num::complex::Complex::new(0.0, 0.0);
             }else{
-                				// Julia Set
-				// wikipedia.org/wiki/Julia_set
-				c_re = -0.8; 
-				c_im =  0.156;
+                // Julia Set
+                // wikipedia.org/wiki/Julia_set
+                c_re = -0.8; 
+                c_im =  0.156;
                 let z_re = (1.0/zoom)*normalize(x as f64,0.0, frac.width as f64,-2.5,2.5);
                 let z_im = (1.0/zoom)*normalize(y as f64,0.0, frac.height as f64,-2.5,2.5);
                 z = num::complex::Complex::new(z_re, z_im);
