@@ -129,5 +129,5 @@ class RNNCell:
     def parameters(self):
         return [self.weight_ih,self.weight_hh,self.bias]
 
-r=RNNCell(n_inputs,n_neurons)
+
 
