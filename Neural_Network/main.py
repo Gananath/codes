@@ -4,9 +4,6 @@ from deep.losses import Loss
 import numpy as np
 import mygrad as mg
 
-
-
-
 class Net:
     def __init__(self):
         self.dense1 = Linear(2,3,bias=True)
@@ -22,8 +19,6 @@ class Net:
     @property
     def parameters(self):
         return self.dense1.parameters + self.dense2.parameters + self.bn.parameters 
-
-
 
 model = Net()
 opt = Optimizers(model.parameters)
@@ -42,7 +37,7 @@ y = np.array([[0],
 
 for i in range(500):
     out = model(X)
-    loss = criterion.CrossEntropy(out,y)
+    loss = criterion.CrossEntropy(y,out)
     loss.backward()
     opt.Momentum()
     loss.null_gradients()
@@ -51,4 +46,3 @@ for i in range(500):
         print(model(X))
         print("Loss",loss.data.tolist())
         print("\n")
-
