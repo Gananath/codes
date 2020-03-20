@@ -92,7 +92,6 @@ class Dropout:
         return []
 
 
-#https://sjmielke.com/jax-purify.htm
 class LSTMCell:
     '''
     https://mlexplained.com/2019/02/15/building-an-lstm-from-scratch-in-pytorch-lstms-in-depth-part-1/
