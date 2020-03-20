@@ -1,10 +1,13 @@
-# Golang and Rust implementation of
+## Neural Network from scratch
+- Creating neural networks from scratch using my grad library
+
+## Golang and Rust implementation of
 - Game of life
 - Tic Tac Toe
 - Fractals
 - Web App
 
-## libtac
+### libtac
 A go lang library for creating text based n dimensional tic-tac-toe games
 
 ```
