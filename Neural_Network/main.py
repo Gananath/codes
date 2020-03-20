@@ -27,7 +27,7 @@ class Net:
 
 model = Net()
 opt = Optimizers(model.parameters)
-l = Loss()
+criterion = Loss()
 
 # xor problem
 X = np.array([[0,0],
@@ -42,7 +42,7 @@ y = np.array([[0],
 
 for i in range(500):
     out = model(X)
-    loss = l.CrossEntropy(y,out)
+    loss = criterion.CrossEntropy(out,y)
     loss.backward()
     opt.Momentum()
     loss.null_gradients()
