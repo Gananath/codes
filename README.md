@@ -1,5 +1,5 @@
 ## Neural Network from scratch
-- Creating neural networks from scratch using my grad library
+- Creating neural networks from scratch using *mygrad* library
 
 ## Golang and Rust implementation of
 - Game of life
