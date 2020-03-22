@@ -65,10 +65,10 @@ class LayerNorm:
     def __call__(self,x):
         N = x.shape[0]
         # mini-batch mean
-        mu = np.expand_dims(x.mean(axis=1),axis=1)
+        mu = mg.expand_dims(x.mean(axis=1),axis=1)
         # mini batch variance
         sqr_mu = (x - mu)**2
-        var = np.expand_dims((1./N)*np.sum(x,axis =1),axis=1)
+        var = mg.expand_dims((1./N)*mg.sum(x,axis =1),axis=1)
         # normalize
         xhat = (x - mu)/(mg.sqrt(var + self.eps))
         return mg.matmul(xhat,self.gamma.T) + self.beta
@@ -92,6 +92,7 @@ class Dropout:
         return []
 
 
+#https://sjmielke.com/jax-purify.htm
 class LSTMCell:
     '''
     https://mlexplained.com/2019/02/15/building-an-lstm-from-scratch-in-pytorch-lstms-in-depth-part-1/
