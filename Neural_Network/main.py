@@ -42,7 +42,6 @@ for i in range(500):
     opt.Momentum()
     loss.null_gradients()
     if i%10==0:
-        #print(np.where(model(X)>0.5,1,0))
-        print(model(X))
+        print(np.where(out>0.6,1,0))
         print("Loss",loss.data.tolist())
         print("\n")
