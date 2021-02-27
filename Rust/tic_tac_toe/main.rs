@@ -7,15 +7,15 @@
 
 mod game;
 
+use game::utils::*;
 use std::error::Error;
 use std::io::stdin;
-use game::utils::*;
 
 fn main() -> Result<(), Box<dyn Error>> {
     println!("\x1B[2J\x1B[1;1H");
     let size = input("size");
     let players = input("player");
-    let size: usize = size.trim().parse().expect("Wrong key pressed");
+    let size: usize = size.trim().parse().expect("Failed to read user input");
     let players = players.trim();
     let players = get_player(players)?; //
     let mut game = Board::new(players, size);
